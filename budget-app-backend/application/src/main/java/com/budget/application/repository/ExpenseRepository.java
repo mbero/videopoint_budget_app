@@ -1,0 +1,19 @@
+package com.budget.application.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
+
+import com.budget.application.model.Expense;
+
+@Repository
+public interface ExpenseRepository {
+
+	Optional<Expense> findById(Long id);
+	
+	Expense save(Expense expense);
+	
+	List<Expense> findAll();
+	
+}
