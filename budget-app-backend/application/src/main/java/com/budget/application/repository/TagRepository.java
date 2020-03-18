@@ -8,14 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.budget.application.model.Tag;
 
-@Repository
+@Repository 
 public interface TagRepository  extends CrudRepository<Tag, Long>{
 
 	Optional<Tag> findById(Long id);
 	
 	Tag save(Tag tag);
 	
-	List<Tag> findaAll();
+	List<Tag> findAll();
 	
 	List<Tag> findByName(String name);
 
