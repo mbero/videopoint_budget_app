@@ -73,12 +73,12 @@ public class TestUtils {
 	 * @param expenseDate
 	 * @return
 	 */
-	public Expense generateTestExpense(int amountOfTagsToGenerate, Timestamp expenseDate) {
+	public Expense generateTestExpense(int amountOfTagsToGenerate, LocalDateTime expenseDate) {
 		Expense expense = new Expense();
 		if (expenseDate == null) {
 			expense.setCreationDate(LocalDateTime.now());
 		} else {
-			expense.setCreationDate(expenseDate.toLocalDateTime());
+			expense.setCreationDate(expenseDate);
 		}
 		expense.setTags(generateTestTags(amountOfTagsToGenerate, false));
 		expense.setValue(getRandomDoubleFromGivenRange(0.0, 10000));
@@ -104,7 +104,7 @@ public class TestUtils {
 			Timestamp expenseDate) {
 		List<Expense> expenses = new ArrayList<Expense>();
 		for (int i = 0; i < amountOfExpenses; i++) {
-			expenses.add(generateTestExpense(amountOfTagsInEachExpense, expenseDate));
+			expenses.add(generateTestExpense(amountOfTagsInEachExpense, LocalDateTime.now()));
 		}
 		return expenses;
 	}
