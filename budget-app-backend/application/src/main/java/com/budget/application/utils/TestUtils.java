@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,7 +79,7 @@ public class TestUtils {
 		if (expenseDate == null) {
 			expense.setCreationDate(LocalDateTime.now());
 		} else {
-			expense.setCreationDate(expenseDate);
+			expense.setCreationDate(expenseDate );
 		}
 		expense.setTags(generateTestTags(amountOfTagsToGenerate, false));
 		expense.setValue(getRandomDoubleFromGivenRange(0.0, 10000));
@@ -137,4 +138,16 @@ public class TestUtils {
 		LocalDateTime dateTime = LocalDateTime.parse(dateInProperFormat, formatter);
 		return dateTime;
 	}
+	
+	/**
+	 * Returns ISO 8601 String based on input LocalDateTime date
+	 * @param localDateTime
+	 * @return String (ISO 8601 formatted date)
+	 */
+	public String getISOStringFromLocalDateTime(LocalDateTime localDateTime) {
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("+yyyy-MM-dd'T'HH:mm:ss'Z'").withZone(ZoneId.of("UTC"));
+		 String formattedLDT = localDateTime.format(formatter).replace("+", "");
+		 return formattedLDT;
+	}
+
 }
