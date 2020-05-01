@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Tag } from 'src/app/models/Tag';
 
 @Component({
   selector: 'app-new-expense',
@@ -12,6 +13,12 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./new-expense.component.scss']
 })
 export class NewExpenseComponent{
+  @ViewChild('tagsInput', {static:true}) tagsInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: true}) auto: MatAutocomplete;
+
+  public readonly separatorKeyCodes: number[] = [13,188];
+  public addOnBlur = true;
+  public selectedTags: Tag[] = [];
 
   public expenseForm = new FormGroup({
     tags: new FormControl(undefined),
@@ -28,6 +35,18 @@ export class NewExpenseComponent{
 
   constructor(){
 
+  }
+
+  public add(event: any){
+    console.log('add invoked');
+  }
+
+  public addExpenseClickHandler(){
+    console.log('addExpenseClickHandler invoked');
+  }
+
+  public selected(event:any){
+    console.log('selected method invoked');
   }
 
   public submitExpense(event: any){

@@ -1,28 +1,43 @@
 <mat-card>
     <mat-card-title class="center">New Expense</mat-card-title>
     <mat-card-content>
-        <form [formGroup]="expenseForm" 
-        (ngSubmit)="submitExpense($event)">
-        <p>
-            <mat-form-field class="chip-list">
-                <mat-chip-list>
-                    <mat-chip>TEST</mat-chip>
-                </mat-chip-list>
-                <input
-                    #tagsInput
-                    type="text"
-                    [formControl]="tagsControl"
-                    placeholder="Add maximum 5 tags"
-                    
-                >
+        <form [formGroup]="expenseForm" (ngSubmit)="submitExpense($event)">
+            <p>
+                <mat-form-field class="chip-list">
+                    <mat-chip-list #chipList aria-label="Tags selection">
+                        <mat-chip>TEST</mat-chip>
+                    </mat-chip-list>
 
+                    <input matInput #tagsInput type="text" [formControl]="tagsControl" placeholder="Add maximum 5 tags"
+                        [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)" [disabled]="selectedTags.length >=5">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option>
+                            TEST MAT-OPTION
+                        </mat-option>
 
-            </mat-form-field>
+                    </mat-autocomplete>
 
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input matInput #valueInput formControlName="value" type="number" pattern="^\d*(\.\d{0,2})?$"
+                        placeholder="Add expense value">
+                </mat-form-field>
+            </p>
 
-        </p>
-    
-    </form>
+            <div class="center">
+                <button mat-flat-button color="primary"
+                type="button" mat-button>Show Expenses</button>
+
+                <button mat-flat-button color="accent" type="submit"
+                mat-button (click)="addExpenseClickHandler()" 
+                [disabled]="selectedTags.length>0">Add Expense</button>
+            </div>
+
+        </form>
 
     </mat-card-content>
 </mat-card>
