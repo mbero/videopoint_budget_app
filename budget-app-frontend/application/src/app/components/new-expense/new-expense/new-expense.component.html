@@ -5,16 +5,20 @@
             <p>
                 <mat-form-field class="chip-list">
                     <mat-chip-list #chipList aria-label="Tags selection">
-                        <mat-chip>TEST</mat-chip>
+                        <mat-chip  *ngFor="let tag of selectedTags">
+                            {{tag.name}}
+                        </mat-chip>
                     </mat-chip-list>
 
                     <input matInput #tagsInput type="text" [formControl]="tagsControl" placeholder="Add maximum 5 tags"
                         [matAutocomplete]="auto" [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="add($event)" [disabled]="selectedTags.length >=5">
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                        <mat-option>
-                            TEST MAT-OPTION
+                    
+                    <mat-autocomplete #auto="matAutocomplete" 
+                        (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                            {{tag.name}}
                         </mat-option>
 
                     </mat-autocomplete>
