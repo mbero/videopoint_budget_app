@@ -26,7 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
-    NewExpenseComponent
+    NewExpenseComponent,
   ],
   imports: [
     MatFormFieldModule,

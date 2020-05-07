@@ -5,8 +5,9 @@
             <p>
                 <mat-form-field class="chip-list">
                     <mat-chip-list #chipList aria-label="Tags selection">
-                        <mat-chip  *ngFor="let tag of selectedTags">
+                        <mat-chip (removed)="remove(tag)" [removable]="removableChip" *ngFor="let tag of selectedTags">
                             {{tag.name}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
                         </mat-chip>
                     </mat-chip-list>
 
@@ -27,8 +28,8 @@
             </p>
             <p>
                 <mat-form-field>
-                    <input matInput #valueInput formControlName="value" type="number" pattern="^\d*(\.\d{0,2})?$"
-                        placeholder="Add expense value">
+                    <input matInput #valueInput formControlName="value"
+                     type="number" placeholder="Add expense value">
                 </mat-form-field>
             </p>
 
@@ -38,7 +39,7 @@
 
                 <button mat-flat-button color="accent" type="submit"
                 mat-button (click)="addExpenseClickHandler()" 
-                [disabled]="selectedTags.length>0">Add Expense</button>
+                [disabled]="selectedTags.length<1">Add Expense</button>
             </div>
 
         </form>
