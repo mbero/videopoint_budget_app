@@ -41,7 +41,8 @@ export class NewExpenseComponent implements OnInit{
     return this.expenseForm.get('value') as FormControl
   }
 
-  constructor(private tagService: TagService, private expenseService: ExpenseService, public dialog: MatDialog){
+  constructor(private tagService: TagService, private expenseService: ExpenseService, 
+    public dialog: MatDialog){
 
   }
   ngOnInit(): void {

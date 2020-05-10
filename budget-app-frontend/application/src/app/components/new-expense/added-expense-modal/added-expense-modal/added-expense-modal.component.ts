@@ -9,7 +9,9 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 export class AddedExpenseModalComponent {
 
   constructor(
-    public dialogRef : MatDialogRef<AddedExpenseModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any 
+    public dialogRef :
+     MatDialogRef<AddedExpenseModalComponent>, 
+     @Inject(MAT_DIALOG_DATA) public data: any 
   ) { }
 
   public okClick(){
