@@ -1,9 +1,28 @@
-
 <div *ngIf="operationType=='EDIT'">
+    <form [formGroup]="editForm">
+        <mat-form-field>
+            <label>Tags</label>
+                <input matInput formControlName="tags" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <span>Date</span>
+            <input matInput [formControl]="dateCtrl" [matDatepicker]="datepicker">
+            <mat-datepicker-toggle matSuffix [for]=datepicker></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <label>Value</label>
+            <input matInput formControlName="value" type="number">
+        </mat-form-field>
 
+    </form>
+
+    <div mat-dialog-actions class="center">
+        <button mat-flat-button color="warn" (click)="cancelClickHandler()">Cancel</button>
+    </div>
 
 </div>
 <div *ngIf="operationType=='DELETE'">
 
-    
+
 </div>
