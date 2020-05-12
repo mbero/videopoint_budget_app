@@ -10,6 +10,16 @@ export class ExpenseService {
 
   constructor() { }
 
+  public deleteExpense(expenseId: number){
+    //TODO - implement me
+    return of([]);
+  }
+
+    public saveExpense(expense: Expense){
+      //TODO - implement me
+      return of([]);
+    }
+
 
     public getAllExpenses(): Observable<Expense[]>{
       let expense1 = {
