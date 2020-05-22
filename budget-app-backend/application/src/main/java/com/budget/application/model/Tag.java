@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tags")
 public class Tag {
@@ -24,6 +26,7 @@ public class Tag {
 	private String name;
 
 	@ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<Expense> expenses = new ArrayList<Expense>();
 
 	public Tag(String name) {

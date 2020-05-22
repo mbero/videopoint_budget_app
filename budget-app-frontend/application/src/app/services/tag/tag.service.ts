@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Tag } from 'src/app/models/Tag';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
 
-  constructor() { }
+  public allTagsResults: Observable<Tag[]>;
+
+  constructor(private http: HttpClient) {
+
+   }
 
   public getAllTags(): Observable<Tag[]>{
-    let tag1: Tag = { name : "biedronka"};
-    let tag2: Tag = { name : "lidl"};
-    let tag3: Tag = { name : "elektronika"};
-    let tag4: Tag = { name : "drogeria"};
-    let tags = [ tag1, tag2, tag3, tag4];
+    
+    this.allTagsResults = new Observable( observer => {
+      this.http.get('url').subscribe(response =>{
+        //TODO - process response
+        
+      });
+    });
 
-    return of(tags);
+    return this.allTagsResults;
   }
 
 }

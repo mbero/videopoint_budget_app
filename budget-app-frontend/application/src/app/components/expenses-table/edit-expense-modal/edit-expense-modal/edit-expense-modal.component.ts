@@ -4,7 +4,6 @@ import { Expense } from 'src/app/models/Expense';
 import { ExpenseEditOperation } from 'src/app/models/ExpenseEditOperation';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ExpenseService } from 'src/app/services/expense/expense.service';
-import { type } from 'os';
 
 @Component({
   selector: 'app-edit-expense-modal',
