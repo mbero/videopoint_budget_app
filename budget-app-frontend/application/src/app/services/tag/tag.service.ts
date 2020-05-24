@@ -9,20 +9,20 @@ import { HttpClient } from '@angular/common/http';
 export class TagService {
 
   public allTagsResults: Observable<Tag[]>;
+  public hostAdress: String = "http://localhost:8083/"
 
   constructor(private http: HttpClient) {
 
-   }
+  }
 
-  public getAllTags(): Observable<Tag[]>{
-    
-    this.allTagsResults = new Observable( observer => {
-      this.http.get('url').subscribe(response =>{
-        //TODO - process response
-        
+  public getAllTags(): Observable<Tag[]> {
+    let url = this.hostAdress.concat('tags');
+    this.allTagsResults = new Observable(observer => {
+      this.http.get(url).subscribe(response => {
+        let tagsFromResponse = response['tags'];
+        observer.next(tagsFromResponse);
       });
     });
-
     return this.allTagsResults;
   }
 
