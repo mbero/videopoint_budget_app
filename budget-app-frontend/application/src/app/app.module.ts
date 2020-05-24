@@ -24,6 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ExpensesTableComponent } from './components/expenses-table/expenses-table/expenses-table.component';
 import { EditExpenseModalComponent } from './components/expenses-table/edit-expense-modal/edit-expense-modal/edit-expense-modal.component';
+import { AlertComponent } from './components/common/alert/alert/alert.component';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { EditExpenseModalComponent } from './components/expenses-table/edit-expe
     NewExpenseComponent,
     ExpensesTableComponent,
     EditExpenseModalComponent,
+    AlertComponent,
   ],
   imports: [
     MatFormFieldModule,

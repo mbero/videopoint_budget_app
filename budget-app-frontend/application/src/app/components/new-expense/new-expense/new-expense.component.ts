@@ -10,6 +10,8 @@ import { TagService } from 'src/app/services/tag/tag.service';
 import { ExpenseService } from 'src/app/services/expense/expense.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddedExpenseModalComponent } from '../added-expense-modal/added-expense-modal/added-expense-modal.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertComponent } from '../../common/alert/alert/alert.component';
 
 
 @Component({
@@ -27,6 +29,7 @@ export class NewExpenseComponent implements OnInit{
   public allTags: Tag[] = [];
   public filteredTags : Observable<Tag[]>;
   public removableChip: boolean = true;
+  public errorSubscription: Subscription;
 
   public expenseForm = new FormGroup({
     tags: new FormControl(undefined),
@@ -42,10 +45,15 @@ export class NewExpenseComponent implements OnInit{
   }
 
   constructor(private tagService: TagService, private expenseService: ExpenseService, 
-    public dialog: MatDialog){
+    public dialog: MatDialog, public alertDialog: MatDialog){
 
   }
   ngOnInit(): void {
+
+    this.errorSubscription = this.tagService.onErrorOccurrs().subscribe(error =>{
+      this.showAlertModal(error);
+    });
+
     this.tagService.getAllTags().subscribe(response =>{
       this.allTags = response;
     });
@@ -53,6 +61,13 @@ export class NewExpenseComponent implements OnInit{
     this.filteredTags = this.tagsControl.valueChanges.pipe(
       map((val: any | null) => val ? this.filterTags(val) : this.allTags.slice())
     );
+  }
+
+  private showAlertModal(error: HttpErrorResponse){
+     let alertDialogRef = this.alertDialog.open(AlertComponent, {
+        width: '250px',
+        data: error
+     });
   }
 
   private filterTags(tag: any):Tag[]{
