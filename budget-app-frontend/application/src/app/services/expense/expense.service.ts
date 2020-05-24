@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class ExpenseService {
 
+  public retreivedExpenseResult: Observable<Expense[]>;
+  public deleteExpenseResult: Observable<Expense[]>;
   public addedExpenseResult: Observable<Expense[]>;
   public hostAdress: String = "http://localhost:8083/";
   public subject = new Subject<HttpErrorResponse>();
@@ -19,10 +21,17 @@ export class ExpenseService {
   onErrorOccurrs(): Observable<HttpErrorResponse>{
     return this.subject.asObservable();
   }
-  
+
   public deleteExpense(expenseId: number) {
-    //TODO - implement me
-    return of([]);
+
+    this.deleteExpenseResult = new Observable(observer=>{
+      let url = this.hostAdress + 'expense/' + expenseId;
+      this.httpClient.delete<any>(url).subscribe(response=>{
+          observer.next(response);
+      }, err=> this.handleException(err));
+
+    });
+    return this.deleteExpenseResult;
   }
 
   public saveExpense(expense: Expense) {
@@ -70,20 +79,15 @@ export class ExpenseService {
   }
 
   public getAllExpenses(): Observable<Expense[]> {
-    let expense1 = {
-      id: 0,
-      tags: [{ name: "tag1" }],
-      value: 20.20,
-      date: "2020-05-10"
-    }
-    let expense2 = {
-      id: 1,
-      tags: [{ name: "tag2" }],
-      value: 404.20,
-      date: "2020-06-10"
-    }
+    this.retreivedExpenseResult = new Observable(observer=>{
+      let url = this.hostAdress+('expenses');
+      this.httpClient.get(url).subscribe(response=>{
+        let expenses = response['expenses'];
+        observer.next(expenses);
+      }, err=> this.handleException(err));
+    });
 
-    return of([expense1, expense2]);
+    return this.retreivedExpenseResult;
   }
 
   public getExpenseFromData(tags: Tag[], value: number) {

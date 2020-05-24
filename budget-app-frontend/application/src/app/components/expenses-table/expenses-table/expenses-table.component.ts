@@ -19,6 +19,10 @@ export class ExpensesTableComponent implements OnInit {
     public dialog: MatDialog) {  }
 
   ngOnInit(): void {
+    this.getAllExpenses();
+  }
+
+  public getAllExpenses(){
     this.expensesService.getAllExpenses().subscribe(response =>{
       this.allExpenses = response;
     });
@@ -47,7 +51,7 @@ export class ExpensesTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result=>{
-      console.log('The dialog was closed');
+      this.getAllExpenses();
     });
     
   }
