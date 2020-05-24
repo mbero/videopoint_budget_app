@@ -32,8 +32,18 @@ public class Expense {
 					@JoinColumn(name = "tag_id", referencedColumnName = "id", nullable = false, updatable = false) })
 	private List<Tag> tags;
 
+	private String formattedDate;
+
 	public Expense() {
-		
+
+	}
+
+	public String getFormattedDate() {
+		return formattedDate;
+	}
+
+	public void setFormattedDate(String formattedDate) {
+		this.formattedDate = formattedDate;
 	}
 
 	public Long getId() {

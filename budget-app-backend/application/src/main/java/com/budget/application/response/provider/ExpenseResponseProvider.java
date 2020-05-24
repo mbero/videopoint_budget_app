@@ -1,6 +1,7 @@
 package com.budget.application.response.provider;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,9 +36,15 @@ public class ExpenseResponseProvider {
 		return response;
 	}
 
-	public ExpenseResponseEntity createExpense(Expense expense) {
+	public ExpenseResponseEntity saveExpense(Expense expense) {
 		ExpenseResponseEntity response = null;
 		try {
+			if(StringUtils.isEmpty(expense.getFormattedDate())) {
+				expense.setCreationDate(LocalDateTime.now());
+			}else {
+				LocalDateTime ldtFromISO = commonTools.getLocalDateTimeFromISODate(expense.getFormattedDate());
+				expense.setCreationDate(ldtFromISO);
+			}
 			ExpensesList expenses = new ExpensesList(Arrays.asList(expenseService.createExpense(expense)));
 			response = new ExpenseResponseEntity(expenses, HttpStatus.OK);
 		} catch (Exception e) {

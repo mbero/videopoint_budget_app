@@ -28,8 +28,8 @@ public class BudgetController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/expense", method = RequestMethod.POST)
-	public ExpenseResponseEntity addExpense(@RequestBody Expense expense) {
-		return expenseResponseProvider.createExpense(expense);
+	public ExpenseResponseEntity saveExpense(@RequestBody Expense expense) {
+		return expenseResponseProvider.saveExpense(expense);
 	}
 
 	@CrossOrigin

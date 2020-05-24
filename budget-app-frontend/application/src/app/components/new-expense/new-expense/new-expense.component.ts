@@ -29,7 +29,8 @@ export class NewExpenseComponent implements OnInit{
   public allTags: Tag[] = [];
   public filteredTags : Observable<Tag[]>;
   public removableChip: boolean = true;
-  public errorSubscription: Subscription;
+  public tagServiceErrorSubscription: Subscription;
+  public expenseServiceErrorSubscription: Subscription;
 
   public expenseForm = new FormGroup({
     tags: new FormControl(undefined),
@@ -50,9 +51,13 @@ export class NewExpenseComponent implements OnInit{
   }
   ngOnInit(): void {
 
-    this.errorSubscription = this.tagService.onErrorOccurrs().subscribe(error =>{
+    this.tagServiceErrorSubscription = this.tagService.onErrorOccurrs().subscribe(error =>{
       this.showAlertModal(error);
     });
+
+    this.expenseServiceErrorSubscription = this.expenseService.onErrorOccurrs().subscribe(error =>{
+      this.showAlertModal(error);
+    });    
 
     this.tagService.getAllTags().subscribe(response =>{
       this.allTags = response;

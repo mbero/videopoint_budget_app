@@ -11,6 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommonTools {
 
+	public LocalDateTime getLocalDateTimeFromISODate(String isoDate) {
+		LocalDateTime finalDate = null;
+		try {
+			Timestamp timestampFromIsoDate = getTimeStampFromISODate(isoDate);
+			finalDate = timestampFromIsoDate.toLocalDateTime();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return finalDate;
+	}
+	
 
 	public Timestamp getTimeStampFromISODate(String isoDate) throws Exception {
 		Timestamp result = null;
