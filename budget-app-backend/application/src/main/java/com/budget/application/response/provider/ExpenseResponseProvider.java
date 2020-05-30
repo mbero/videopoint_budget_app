@@ -2,6 +2,7 @@ package com.budget.application.response.provider;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import org.springframework.util.StringUtils;
 
 import com.budget.application.model.Expense;
 import com.budget.application.model.ExpensesSearchCriteria;
+import com.budget.application.model.Tag;
 import com.budget.application.service.ExpensesService;
+import com.budget.application.service.TagService;
 import com.budget.application.utils.CommonTools;
 
 @Service
@@ -21,6 +24,9 @@ public class ExpenseResponseProvider {
 	@Autowired
 	private ExpensesService expenseService;
 
+	@Autowired
+	private TagService tagService;
+	
 	@Autowired
 	private CommonTools commonTools;
 
@@ -45,6 +51,12 @@ public class ExpenseResponseProvider {
 				LocalDateTime ldtFromISO = commonTools.getLocalDateTimeFromISODate(expense.getFormattedDate());
 				expense.setCreationDate(ldtFromISO);
 			}
+			List<Tag> tagsFromExpense = expense.getTags();
+			List<Tag>  newTags = new ArrayList<Tag>();
+			for(Tag currentTag: tagsFromExpense) {
+				newTags.add(tagService.createTag(currentTag.getName()));
+			}
+			expense.setTags(newTags);
 			ExpensesList expenses = new ExpensesList(Arrays.asList(expenseService.createExpense(expense)));
 			response = new ExpenseResponseEntity(expenses, HttpStatus.OK);
 		} catch (Exception e) {

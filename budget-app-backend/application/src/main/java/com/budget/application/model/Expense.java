@@ -26,7 +26,7 @@ public class Expense {
 
 	private Double value;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "expenses_tags", joinColumns = {
 			@JoinColumn(name = "expense_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "tag_id", referencedColumnName = "id", nullable = false, updatable = false) })
