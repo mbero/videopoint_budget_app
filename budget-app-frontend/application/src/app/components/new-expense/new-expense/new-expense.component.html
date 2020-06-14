@@ -34,10 +34,10 @@
             </p>
 
             <div class="center">
-                <button mat-flat-button color="primary" routerLink="../expenses-table"
+                <button id="showExpensesButton" mat-flat-button color="primary" routerLink="../expenses-table"
                 type="button" mat-button>Show Expenses</button>
 
-                <button mat-flat-button color="accent" type="submit"
+                <button id="addExpenseButton" mat-flat-button color="accent" type="submit"
                 mat-button (click)="addExpenseClickHandler()" 
                 [disabled]="selectedTags.length<1">Add Expense</button>
             </div>
