@@ -11,7 +11,7 @@
                         </mat-chip>
                     </mat-chip-list>
 
-                    <input matInput #tagsInput type="text" [formControl]="tagsControl" placeholder="Add maximum 5 tags"
+                    <input id="tagsInput" matInput #tagsInput type="text" [formControl]="tagsControl" placeholder="Add maximum 5 tags"
                         [matAutocomplete]="auto" [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="add($event)" [disabled]="selectedTags.length >=5">
@@ -28,7 +28,7 @@
             </p>
             <p>
                 <mat-form-field>
-                    <input matInput #valueInput formControlName="value"
+                    <input id="valueInput" matInput #valueInput formControlName="value"
                      type="number" placeholder="Add expense value">
                 </mat-form-field>
             </p>

@@ -105,8 +105,8 @@ export class NewExpenseComponent implements OnInit{
 
   public addExpenseClickHandler(){
     let expenseToAdd = this.expenseService.getExpenseFromData(this.selectedTags, this.valueControl.value);
-    this.expenseService.addExpense(expenseToAdd).subscribe(response=>{
-        this.showAddExpenseModal();
+    this.expenseService.addExpense(expenseToAdd).subscribe(response=>{ 
+      this.showAddExpenseModal();
     })
   }
 

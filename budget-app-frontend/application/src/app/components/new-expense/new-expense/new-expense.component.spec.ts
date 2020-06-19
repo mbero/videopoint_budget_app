@@ -8,9 +8,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ExpensesTableComponent } from '../../expenses-table/expenses-table/expenses-table.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router, RouterModule } from '@angular/router';
+
+import { routes, AppRoutingModule } from 'src/app/app-routing.module';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { ExpenseService } from 'src/app/services/expense/expense.service';
-import { routes, AppRoutingModule } from 'src/app/app-routing.module';
+
 
 describe('NewExpenseComponent', () => {
   let component: NewExpenseComponent;
@@ -21,11 +23,10 @@ describe('NewExpenseComponent', () => {
   let expensesService: ExpenseService;
 
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [NewExpenseComponent],
-      imports: [HttpClientModule, HttpClientTestingModule, MatDialogModule, MatAutocompleteModule,
-         RouterTestingModule.withRoutes(routes)],
+      imports: [HttpClientModule, HttpClientTestingModule, MatDialogModule, MatAutocompleteModule, RouterTestingModule.withRoutes(routes)],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
@@ -33,20 +34,20 @@ describe('NewExpenseComponent', () => {
       ]
     })
       .compileComponents();
-  }));
-
-  beforeEach(async(() => {
     expensesService = TestBed.get(ExpenseService);
     router = TestBed.get(Router);
     fixture = TestBed.createComponent(NewExpenseComponent);
     location = TestBed.get(Location);
     component = fixture.componentInstance;
+    //fixture.detectChanges();
     router.initialNavigation();
     httpTestingController = TestBed.get(HttpTestingController);
 
-  }));
+  });
+
 
   afterEach(() => {
+    //fixture.detectChanges();
     fixture.destroy();
     component = null;
   });
@@ -72,7 +73,20 @@ describe('NewExpenseComponent', () => {
     }
   }));
 
+  it('should enable addExpenseButton by given form data', fakeAsync(() => {
+    let tagsInput = fixture.debugElement.nativeElement.querySelector('#tagsInput');
+    let valueInput = fixture.debugElement.nativeElement.querySelector('#valueInput');
+    tagsInput.value='someNewTagName';
+    valueInput.value=12020;
+    fixture.componentInstance.selectedTags.push({name: 'someNewTagName'});
+    let addExpenseButton = fixture.debugElement.nativeElement.querySelector("#addExpenseButton");
+    fixture.detectChanges();
+    let isAddExpenseButtonDisabled = addExpenseButton.disabled;
+
+    expect(isAddExpenseButtonDisabled).toBeFalse();
+  }));
 
 
+    
 
 });
